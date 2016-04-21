@@ -45,9 +45,6 @@ The mean number of steps are:
 
 ```{r, echo=TRUE}
 meansteps<-mean(totalsteps$steps)
-```
-
-```{r, eval=TRUE,echo=FALSE}
 meansteps
 ```
 
@@ -55,9 +52,6 @@ The median number of steps are:
 
 ```{r, echo=TRUE}
 mediansteps<-median(totalsteps$steps)
-```
-
-```{r, eval=TRUE,echo=FALSE}
 mediansteps
 ```
 
@@ -87,9 +81,6 @@ The total number of missing values in the data set is:
 
 ```{r, echo=TRUE}
 totalna<-sum(is.na(activitydf$steps))
-```
-
-```{r, eval=TRUE,echo=FALSE}
 totalna
 ```
 
@@ -127,9 +118,6 @@ The mean number of steps per day are:
 
 ```{r, eval=TRUE, echo=TRUE}
 meansteps.impute<-mean(totalsteps.impute$x)
-```
-
-```{r, eval=TRUE,echo=FALSE}
 meansteps.impute
 ```
 
@@ -137,9 +125,6 @@ The median number of steps per day are:
 
 ```{r, eval=TRUE, echo=TRUE}
 mediansteps.impute<-median(totalsteps.impute$x)
-```
-
-```{r, eval=TRUE,echo=FALSE}
 mediansteps.impute
 ```
 

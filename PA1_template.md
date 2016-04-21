@@ -76,8 +76,8 @@ The mean number of steps are:
 
 ```r
 meansteps<-mean(totalsteps$steps)
+meansteps
 ```
-
 
 ```
 ## [1] 10766.19
@@ -88,8 +88,8 @@ The median number of steps are:
 
 ```r
 mediansteps<-median(totalsteps$steps)
+mediansteps
 ```
-
 
 ```
 ## [1] 10765
@@ -106,7 +106,7 @@ plot(averagesteps$interval, averagesteps$steps, type = "l", col = "blue",
      xlab="Interval", ylab = "Average Number of Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)
 
 2. *Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?*
 
@@ -130,8 +130,8 @@ The total number of missing values in the data set is:
 
 ```r
 totalna<-sum(is.na(activitydf$steps))
+totalna
 ```
-
 
 ```
 ## [1] 2304
@@ -184,15 +184,15 @@ hist(totalsteps.impute$x,col="blue",
      xlab="Total Steps per Day",main = "Histogram of Steps per Day", breaks=15)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-14-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)
 
 The mean number of steps per day are:
 
 
 ```r
 meansteps.impute<-mean(totalsteps.impute$x)
+meansteps.impute
 ```
-
 
 ```
 ## [1] 10766.19
@@ -203,8 +203,8 @@ The median number of steps per day are:
 
 ```r
 mediansteps.impute<-median(totalsteps.impute$x)
+mediansteps.impute
 ```
-
 
 ```
 ## [1] 10766.19
@@ -308,6 +308,6 @@ xyplot(steps ~ interval | factor(weekend), data = averagesteps.impute, type = "l
        xlab="Interval", ylab="Average Number of Steps",layout=c(1,2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-24-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-19-1.png)
 
 By comparing the activity patterns, it looks like more intense activity occurs early in the day on weekdays, but there is more activity overall over the course of the day on weekends.  This individual possibly has a desk job and gets out and about at the weekend.
