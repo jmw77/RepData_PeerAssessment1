@@ -159,11 +159,12 @@ head(totalsteps)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><em>Calculate and report the mean and median of the total number of steps taken per day.</em></li>
 </ol>
-<pre class="r"><code>meansteps&lt;-mean(totalsteps$steps)</code></pre>
-<p>The mean number of steps are 1.076618910^{4}.</p>
+<pre class="r"><code>options(scipen=999) # turn off scientific notation
+meansteps&lt;-mean(totalsteps$steps)</code></pre>
+<p>The mean number of steps are <span class="math">\(10766.1886792\)</span>.</p>
 <p>The median number of steps are:</p>
 <pre class="r"><code>mediansteps&lt;-median(totalsteps$steps)</code></pre>
-<p>The median number of steps are 10765.</p>
+<p>The median number of steps are <span class="math">\(10765\)</span>.</p>
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
 <h2>What is the average daily activity pattern?</h2>
@@ -178,7 +179,7 @@ plot(averagesteps$interval, averagesteps$steps, type = &quot;l&quot;, col = &quo
 <li><em>Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?</em></li>
 </ol>
 <pre class="r"><code>maxsteps&lt;-averagesteps$interval[which.max(averagesteps$steps)]</code></pre>
-<p>The interval with the maximum number of steps is 835.</p>
+<p>The interval with the maximum number of steps is <span class="math">\(835\)</span>.</p>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
@@ -186,7 +187,7 @@ plot(averagesteps$interval, averagesteps$steps, type = &quot;l&quot;, col = &quo
 <li><em>Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs).</em></li>
 </ol>
 <pre class="r"><code>totalna&lt;-sum(is.na(activitydf$steps))</code></pre>
-<p>The total number of missing values in the data set is 2304.</p>
+<p>The total number of missing values in the data set is <span class="math">\(2304\)</span>.</p>
 <ol start="2" style="list-style-type: decimal">
 <li><em>Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.</em></li>
 </ol>
@@ -210,7 +211,7 @@ head(activitydf.impute)</code></pre>
 ## 6 2.0943396 2012-10-01       25</code></pre>
 <p>Let’s just check and see that all the missing data (NA’s) are filled in:</p>
 <pre class="r"><code>nacheck&lt;-sum(any(is.na(activitydf.impute)))</code></pre>
-<p>There 0 NA values remaining in the dataset.</p>
+<p>There <span class="math">\(0\)</span> NA values remaining in the dataset.</p>
 <ol start="4" style="list-style-type: decimal">
 <li><em>Make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day.</em></li>
 </ol>
@@ -219,27 +220,27 @@ hist(totalsteps.impute$x,col=&quot;blue&quot;,
      xlab=&quot;Total Steps per Day&quot;,main = &quot;Histogram of Steps per Day&quot;, breaks=15)</code></pre>
 <p><img src="data:image/png;base64,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" /></p>
 <pre class="r"><code>meansteps.impute&lt;-mean(totalsteps.impute$x)</code></pre>
-<p>The mean number of steps per day are 1.076618910^{4}.</p>
+<p>The mean number of steps per day are <span class="math">\(10766.1886792\)</span>.</p>
 <pre class="r"><code>mediansteps.impute&lt;-median(totalsteps.impute$x)</code></pre>
-<p>The median number of steps per day are 1.076618910^{4}.</p>
+<p>The median number of steps per day are <span class="math">\(10766.1886792\)</span>.</p>
 <p><em>Do these values differ from the estimates from the first part of the assignment?</em></p>
 <pre class="r"><code>meandiff&lt;-meansteps.impute-meansteps
 mediandiff&lt;-mediansteps.impute-mediansteps
 diffna&lt;-meansteps-mediansteps
 diffimpute&lt;-meansteps.impute-mediansteps.impute</code></pre>
-<p>There is a difference of 0 in the mean value, and a difference of 1.1886792 in the median value after imputing missing values.</p>
+<p>There is a difference of <span class="math">\(0\)</span> in the mean value, and a difference of <span class="math">\(1.1886792\)</span> in the median value after imputing missing values.</p>
 <p><em>What is the impact of imputing missing data on the estimates of the total daily number of steps?</em></p>
-<p>When the data set ignores the missing values, the mean and the median differ by 1.1886792. When I impute the missing values the mean and median differ by 0.</p>
+<p>When the data set ignores the missing values, the mean and the median differ by <span class="math">\(1.1886792\)</span>. When I impute the missing values the mean and median differ by <span class="math">\(0\)</span>.</p>
 <p>Looking at the histograms, by imputing the data the shape of the frequency distribution changes - the central peak is more pronounced.</p>
 <p>It would be interesting to know if there are whole days of data lost due to missing values.</p>
 <pre class="r"><code>daysmissing&lt;-length(totalsteps.impute$date)-length(totalsteps$date)</code></pre>
-<p>Imputing values gives us 8 additional days of data (which now contain only average values).</p>
+<p>Imputing values gives us <span class="math">\(8\)</span> additional days of data (which now contain only average values).</p>
 <p>How many days contain NAs?</p>
 <pre class="r"><code>nadf&lt;-activitydf
 nadf$steps&lt;-is.na(nadf$steps)
 nasteps&lt;-aggregate(steps ~ date, data=nadf, FUN=sum)
 nadays&lt;-length(which(nasteps$steps&gt;0))</code></pre>
-<p>There are only 8 days that contain missing values. So we lost a full 8 due to missing values, that we got back by imputing the data.</p>
+<p>There are only <span class="math">\(8\)</span> days that contain missing values. So we lost a full <span class="math">\(8\)</span> due to missing values, that we got back by imputing the data.</p>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level1">
 <h1>Are there differences in activity patterns between weekdays and weekends?</h1>

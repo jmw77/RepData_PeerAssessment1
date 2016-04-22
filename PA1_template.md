@@ -75,10 +75,11 @@ This plot shows the frequency for bins of total number of steps taken each day. 
 
 
 ```r
+options(scipen=999) # turn off scientific notation
 meansteps<-mean(totalsteps$steps)
 ```
 
-The mean number of steps are 1.0766189\times 10^{4}.
+The mean number of steps are $10766.1886792$.
 
 The median number of steps are:
 
@@ -87,7 +88,7 @@ The median number of steps are:
 mediansteps<-median(totalsteps$steps)
 ```
 
-The median number of steps are 10765.
+The median number of steps are $10765$.
 
 ## What is the average daily activity pattern?
 
@@ -109,7 +110,7 @@ plot(averagesteps$interval, averagesteps$steps, type = "l", col = "blue",
 maxsteps<-averagesteps$interval[which.max(averagesteps$steps)]
 ```
 
-The interval with the maximum number of steps is 835. 
+The interval with the maximum number of steps is $835$. 
 
 ##Imputing missing values
 
@@ -120,7 +121,7 @@ The interval with the maximum number of steps is 835.
 totalna<-sum(is.na(activitydf$steps))
 ```
 
-The total number of missing values in the data set is 2304.
+The total number of missing values in the data set is $2304$.
 
 2. *Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.* 
 
@@ -156,7 +157,7 @@ Let's just check and see that all the missing data (NA's) are filled in:
 nacheck<-sum(any(is.na(activitydf.impute)))
 ```
 
-There 0 NA values remaining in the dataset.
+There $0$ NA values remaining in the dataset.
 
 4. *Make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day.* 
 
@@ -174,14 +175,14 @@ hist(totalsteps.impute$x,col="blue",
 meansteps.impute<-mean(totalsteps.impute$x)
 ```
 
-The mean number of steps per day are 1.0766189\times 10^{4}.
+The mean number of steps per day are $10766.1886792$.
 
 
 ```r
 mediansteps.impute<-median(totalsteps.impute$x)
 ```
 
-The median number of steps per day are 1.0766189\times 10^{4}.
+The median number of steps per day are $10766.1886792$.
 
 *Do these values differ from the estimates from the first part of the assignment?*
 
@@ -193,11 +194,11 @@ diffna<-meansteps-mediansteps
 diffimpute<-meansteps.impute-mediansteps.impute
 ```
 
-There is a difference of 0 in the mean value, and a difference of 1.1886792 in the median value after imputing missing values.
+There is a difference of $0$ in the mean value, and a difference of $1.1886792$ in the median value after imputing missing values.
 
 *What is the impact of imputing missing data on the estimates of the total daily number of steps?*
 
-When the data set ignores the missing values, the mean and the median differ by 1.1886792.  When I impute the missing values the mean and median differ by 0.
+When the data set ignores the missing values, the mean and the median differ by $1.1886792$.  When I impute the missing values the mean and median differ by $0$.
 
 Looking at the histograms, by imputing the data the shape of the frequency distribution changes - the central peak is more pronounced.
 
@@ -208,7 +209,7 @@ It would be interesting to know if there are whole days of data lost due to miss
 daysmissing<-length(totalsteps.impute$date)-length(totalsteps$date)
 ```
 
-Imputing values gives us 8 additional days of data (which now contain only average values).
+Imputing values gives us $8$ additional days of data (which now contain only average values).
 
 How many days contain NAs?
 
@@ -220,7 +221,7 @@ nasteps<-aggregate(steps ~ date, data=nadf, FUN=sum)
 nadays<-length(which(nasteps$steps>0))
 ```
 
-There are only 8 days that contain missing values.  So we lost a full 8 due to missing values, that we got back by imputing the data.
+There are only $8$ days that contain missing values.  So we lost a full $8$ due to missing values, that we got back by imputing the data.
 
 #Are there differences in activity patterns between weekdays and weekends?
 
