@@ -1,6 +1,6 @@
 # Course Project 1
 
-This is an R Markdown document for Course Project 1 of the Coursera 'Reproducible Research' course.  We are going to perform some data analysis on a data set collected from an activity monitoring device during the two months in 2012, which include the number of steps taken in 5 minute intervals each day.
+This is an R Markdown document for Course Project 1 of the Coursera 'Reproducible Research' course.  We are going to perform some data analysis on a data set collected from an activity monitoring device during two months in 2012, which include the number of steps taken in 5 minute intervals each day.
 
 ## Loading and preprocessing the data
 
@@ -42,6 +42,8 @@ The data appears to be in a tidy format with named columns so we will not perfor
 
 1. *Calculate total number of steps per day, ignoring NA values.*
 
+I use the aggregate function to sum the number of steps for each day, and return this in a data frame 'totalsteps':
+
 
 ```r
 totalsteps<-aggregate(steps ~ date, data=activitydf, FUN=sum, na.rm=TRUE)
@@ -65,35 +67,27 @@ head(totalsteps)
 hist(totalsteps$steps,col="blue", xlab="Total Steps per Day",main = "Histogram of Steps per Day", breaks=15)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)
+![](PA1_template_files/figure-html/Total Steps Histogram-1.png)
 
 This plot shows the frequency for bins of total number of steps taken each day.  I tried a few 'break' numbers and decided 15 gave a good representation of this data.
 
 3. *Calculate and report the mean and median of the total number of steps taken per day.*
 
-The mean number of steps are:
-
 
 ```r
 meansteps<-mean(totalsteps$steps)
-meansteps
 ```
 
-```
-## [1] 10766.19
-```
+The mean number of steps are 1.0766189\times 10^{4}.
 
 The median number of steps are:
 
 
 ```r
 mediansteps<-median(totalsteps$steps)
-mediansteps
 ```
 
-```
-## [1] 10765
-```
+The median number of steps are 10765.
 
 ## What is the average daily activity pattern?
 
@@ -106,36 +100,27 @@ plot(averagesteps$interval, averagesteps$steps, type = "l", col = "blue",
      xlab="Interval", ylab = "Average Number of Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)
+![](PA1_template_files/figure-html/Plot Average Steps-1.png)
 
 2. *Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?*
 
-The interval with the maximum number of steps is: 
-
 
 ```r
-averagesteps$interval[which.max(averagesteps$steps)]
+maxsteps<-averagesteps$interval[which.max(averagesteps$steps)]
 ```
 
-```
-## [1] 835
-```
+The interval with the maximum number of steps is 835. 
 
 ##Imputing missing values
 
 1. *Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs).*
 
-The total number of missing values in the data set is:
-
 
 ```r
 totalna<-sum(is.na(activitydf$steps))
-totalna
 ```
 
-```
-## [1] 2304
-```
+The total number of missing values in the data set is 2304.
 
 2. *Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.* 
 
@@ -168,12 +153,10 @@ Let's just check and see that all the missing data (NA's) are filled in:
 
 
 ```r
-any(is.na(activitydf.impute))
+nacheck<-sum(any(is.na(activitydf.impute)))
 ```
 
-```
-## [1] FALSE
-```
+There 0 NA values remaining in the dataset.
 
 4. *Make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day.* 
 
@@ -184,71 +167,50 @@ hist(totalsteps.impute$x,col="blue",
      xlab="Total Steps per Day",main = "Histogram of Steps per Day", breaks=15)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)
-
-The mean number of steps per day are:
+![](PA1_template_files/figure-html/Histogram using Imputed Values-1.png)
 
 
 ```r
 meansteps.impute<-mean(totalsteps.impute$x)
-meansteps.impute
 ```
 
-```
-## [1] 10766.19
-```
-
-The median number of steps per day are:
+The mean number of steps per day are 1.0766189\times 10^{4}.
 
 
 ```r
 mediansteps.impute<-median(totalsteps.impute$x)
-mediansteps.impute
 ```
 
-```
-## [1] 10766.19
-```
+The median number of steps per day are 1.0766189\times 10^{4}.
 
 *Do these values differ from the estimates from the first part of the assignment?*
 
 
 ```r
-meansteps.impute-meansteps
+meandiff<-meansteps.impute-meansteps
+mediandiff<-mediansteps.impute-mediansteps
+diffna<-meansteps-mediansteps
+diffimpute<-meansteps.impute-mediansteps.impute
 ```
 
-```
-## [1] 0
-```
-
-```r
-mediansteps.impute-mediansteps
-```
-
-```
-## [1] 1.188679
-```
-
-There is no difference in the mean value, and a very small difference in the median value after imputing missing values.
+There is a difference of 0 in the mean value, and a difference of 1.1886792 in the median value after imputing missing values.
 
 *What is the impact of imputing missing data on the estimates of the total daily number of steps?*
 
-When the data set ignores the missing values, the mean and the median differ by a small amount but are identical when the missing data is imputed.
+When the data set ignores the missing values, the mean and the median differ by 1.1886792.  When I impute the missing values the mean and median differ by 0.
 
-Comparing the histograms, by imputing the data the shape of the frequency distribution changes and the central peak is more pronounced.
+Looking at the histograms, by imputing the data the shape of the frequency distribution changes - the central peak is more pronounced.
 
-In fact, it looks like whole days of data contain missing values, and imputing values thus gives us 8 additional days of data (which now contain only average values):
+It would be interesting to know if there are whole days of data lost due to missing values. 
 
 
 ```r
-length(totalsteps.impute$date)-length(totalsteps$date)
+daysmissing<-length(totalsteps.impute$date)-length(totalsteps$date)
 ```
 
-```
-## [1] 8
-```
+Imputing values gives us 8 additional days of data (which now contain only average values).
 
-Indeed, if we go back and calculate how many NA's occur for each date, there are only 8 days that contain missing values:
+How many days contain NAs?
 
 
 ```r
@@ -258,10 +220,7 @@ nasteps<-aggregate(steps ~ date, data=nadf, FUN=sum)
 nadays<-length(which(nasteps$steps>0))
 ```
 
-
-```
-## [1] 8
-```
+There are only 8 days that contain missing values.  So we lost a full 8 due to missing values, that we got back by imputing the data.
 
 #Are there differences in activity patterns between weekdays and weekends?
 
@@ -308,6 +267,6 @@ xyplot(steps ~ interval | factor(weekend), data = averagesteps.impute, type = "l
        xlab="Interval", ylab="Average Number of Steps",layout=c(1,2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-19-1.png)
+![](PA1_template_files/figure-html/Weekday Vs Weekend Plot-1.png)
 
 By comparing the activity patterns, it looks like more intense activity occurs early in the day on weekdays, but there is more activity overall over the course of the day on weekends.  This individual possibly has a desk job and gets out and about at the weekend.
